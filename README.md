@@ -1,2 +1,2 @@
 # CDS_MSA
-coding protein sequence MSA（multiple sequence alignment）
+coding sequence MSA（multiple sequence alignment）
