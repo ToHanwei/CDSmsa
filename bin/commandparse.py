@@ -13,7 +13,7 @@ class Argparse():
         single file parse
         run a MSA only one time
         """
-        parser = argparse.ArgumentParser(description="CDS MSA tool")
+        parser = argparse.ArgumentParser(description="CDS MSA tool (sigle)")
         parser.add_argument('--msafile', '-m', type=str, metavar='', help="inputfile path, it is a MSA output file (FASTA format)")
         parser.add_argument('--cdsfile', '-c', type=str, metavar='', help="uncleotide sequence file (FASTA formfat)")
         parser.add_argument('--transcode', '-t', type=str, metavar='', help="translate code file path", default="./code.csv")
@@ -23,12 +23,11 @@ class Argparse():
     def batch_parse(self):
         """
         batch runing
+        input folder and batch run ever file
         """
-        parser = argparse.ArgumentParser(description="CDS MSA tool")
-        parser.add_argument('--msafile', '-m', type=str, metavar='', help="inputfile path, it is a MSA output file (FASTA format)")
-        parser.add_argument('--cdsfile', '-c', type=str, metavar='', help="uncleotide sequence file (FASTA formfat)")
+        parser = argparse.ArgumentParser(description="CDS MSA tool (batch)")
+        parser.add_argument('--indir', '-i', type=str, metavar='', help="input folder path, there are MSA output files (FASTA format)")
+        parser.add_argument('--cdsdir', '-c', type=str, metavar='', help=" save uncleotide sequence files (FASTA formfat), have the same name with input files")
         parser.add_argument('--transcode', '-t', type=str, metavar='', help="translate code file path", default="code.csv")
+        parser.add_argument('--outdir', '-o', type=str, metavar='', help="output dir path, save CDS alignment files")
         self.batch_args = parser.parse_args()
-
-        
-

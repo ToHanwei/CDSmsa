@@ -63,24 +63,24 @@ def write2file(indict, outfile):
 			seq = ">" + name + "\n" + indict[name]+ "\n"
 			out.write(seq)
 
-def main():
-	# protein sequence MSA file
-	prot_seqfile = sys.argv[1]
-	# uncleotide sequence file
-	uncl_seqfile = sys.argv[2]
-	# code file
-	codefile = sys.argv[3]
-	
-	filepath,tempfilename = os.path.split(uncl_seqfile)
-	outfile,extension = os.path.splitext(tempfilename)
-	outfile += ".fas"
-
-	prot_dict = makedict(prot_seqfile)
-	uncl_dict = makedict(uncl_seqfile)
-	code_dict = buildcode(codefile)
-	uncl_dict = splitseq(uncl_dict)
-	resu_dict = mapseq(prot_dict, uncl_dict, code_dict)
-	write2file(resu_dict, outfile)
-
-if __name__ == "__main__":
-	main()
+#def main():
+#	# protein sequence MSA file
+#	prot_seqfile = sys.argv[1]
+#	# uncleotide sequence file
+#	uncl_seqfile = sys.argv[2]
+#	# code file
+#	codefile = sys.argv[3]
+#	
+#	filepath,tempfilename = os.path.split(uncl_seqfile)
+#	outfile,extension = os.path.splitext(tempfilename)
+#	outfile += ".fas"
+#
+#	prot_dict = makedict(prot_seqfile)
+#	uncl_dict = makedict(uncl_seqfile)
+#	code_dict = buildcode(codefile)
+#	uncl_dict = splitseq(uncl_dict)
+#	resu_dict = mapseq(prot_dict, uncl_dict, code_dict)
+#	write2file(resu_dict, outfile)
+#
+#if __name__ == "__main__":
+#	main()
