@@ -16,7 +16,7 @@ class Argparse():
         parser = argparse.ArgumentParser(description="CDS MSA tool (sigle)")
         parser.add_argument('--msafile', '-m', type=str, metavar='', help="inputfile path, it is a MSA output file (FASTA format)")
         parser.add_argument('--cdsfile', '-c', type=str, metavar='', help="uncleotide sequence file (FASTA formfat)")
-        parser.add_argument('--transcode', '-t', type=str, metavar='', help="translate code file path", default="./code.csv")
+        parser.add_argument('--transcode', '-t', type=str, metavar='', help="translate code file path, default='code.csv'", default="./code.csv")
         parser.add_argument('--output', '-o', type=str, metavar='', help="output file path, CDS alignment file", default="output.fas")
         self.single_args = parser.parse_args()
 
