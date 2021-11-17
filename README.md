@@ -8,7 +8,7 @@ coding sequence MSA（multiple sequence alignment）
 ## MSA example
 ![workfolw](https://github.com/ToHanwei/CDSmsa/blob/master/imgs/CDSmsa.jpg)
 
-##Usage
+## Usage
 ### Single FASTA file use
 ```python
 python single_msa.py --help
