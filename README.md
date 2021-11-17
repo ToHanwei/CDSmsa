@@ -34,8 +34,7 @@ CDS MSA tool (batch)
 
 optional arguments:
   -h, --help         show this help message and exit
-  --indir , -i       input folder path, there are MSA output files (FASTA
-                     format)
+  --indir , -i       input folder path, there are MSA output files (FASTA format)
   --cdsdir , -c      save uncleotide sequence files (FASTA formfat), have the
                      same name with input files
   --transcode , -t   translate code file path
