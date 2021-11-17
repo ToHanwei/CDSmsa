@@ -2,16 +2,17 @@
 coding sequence MSA（multiple sequence alignment）
 
 ## Contents Index
-* [Workflow](#work-flow)
-* [Usage](#request)
+* [MSA example](#msa-example)
+* [Usage](#usage)
 
-## Work flow example
+## MSA example
 ![workfolw](https://github.com/ToHanwei/CDSmsa/blob/master/imgs/CDSmsa.jpg)
 
-## Usage
+##Usage
+### Single FASTA file use
 ```python
 python single_msa.py --help
-```
+
 usage: single_msa.py [-h] [--msafile] [--cdsfile] [--transcode] [--output]
 
 CDS MSA tool (sigle)
@@ -22,11 +23,11 @@ optional arguments:
   --cdsfile , -c     uncleotide sequence file (FASTA formfat)
   --transcode , -t   translate code file path, default='code.csv'
   --output , -o      output file path, CDS alignment file
-
-
-```python
-python 
 ```
+### Multiple FASTA file use
+```python
+python batch_msa.py --help
+
 usage: batch_msa.py [-h] [--indir] [--cdsdir] [--transcode] [--outdir]
 
 CDS MSA tool (batch)
@@ -39,5 +40,4 @@ optional arguments:
                      same name with input files
   --transcode , -t   translate code file path
   --outdir , -o      output dir path, save CDS alignment files
-
-
+```
