@@ -4,11 +4,10 @@ import os
 import sys
 
 from bin.commandparse import Argparse
-from bin.CDSalignment import makedict
-from bin.CDSalignment import buildcode
 from bin.CDSalignment import splitseq
 from bin.CDSalignment import mapseq
 from bin.CDSalignment import write2file
+from bin.CDSalignment import run_ptot_msa
 
 
 def commands():
@@ -22,34 +21,32 @@ def commands():
     ArgParse = Argparse()
     ArgParse.batch_parse()
     args = ArgParse.batch_args
-    indir = args.indir
     cdsdir = args.cdsdir
-    codefile = args.transcode
     outdir = args.outdir
-    return indir, cdsdir, codefile, outdir
+    keepfile = args.keepfile
+    return cdsdir, outdir, keepfile
 
-def run_single(msafile, cdsfile, codefile, outfile):
+
+def run_single(cdsfile, outdir, keepfile):
     """
     run single file
     """
-    prot_dict = makedict(msafile)
-    uncl_dict = makedict(cdsfile)
-    code_dict = buildcode(codefile)
+    msas_dict, uncl_dict, pfile, mfile = run_ptot_msa(cdsfile, outdir)
     uncl_dict = splitseq(uncl_dict)
-    resu_dict = mapseq(prot_dict, uncl_dict, code_dict)
+    resu_dict = mapseq(msas_dict, uncl_dict)
+    outfile = os.path.join(outdir, os.path.basename(cdsfile))
     write2file(resu_dict, outfile)
+    if not keepfile:
+        os.remove(pfile)
+        os.remove(mfile)
 
 
 def main():
-    indir, cdsdir, codefile, outdir = commands()
-    infiles = os.listdir(indir)
+    cdsdir, outdir, keepfile = commands()
     cdsfiles = os.listdir(cdsdir)
-    assert set(infiles) == set(cdsfiles)
-    for _file in infiles:
-        msafile = os.path.join(indir, _file)
+    for _file in cdsfiles:
         cdsfile = os.path.join(cdsdir, _file)
-        outfile = os.path.join(outdir, _file)
-        run_single(msafile, cdsfile, codefile, outfile)
+        run_single(cdsfile, outdir, keepfile)
 
 
 if __name__ == "__main__":

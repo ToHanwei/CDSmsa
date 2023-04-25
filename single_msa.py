@@ -4,11 +4,10 @@ import os
 import sys
 
 from bin.commandparse import Argparse
-from bin.CDSalignment import makedict
-from bin.CDSalignment import buildcode
 from bin.CDSalignment import splitseq
 from bin.CDSalignment import mapseq
 from bin.CDSalignment import write2file
+from bin.CDSalignment import run_ptot_msa
 
 
 def commands():
@@ -22,21 +21,23 @@ def commands():
     ArgParse = Argparse()
     ArgParse.single_parse()
     args = ArgParse.single_args
-    msafile = args.msafile
+    # msafile = args.msafile
     cdsfile = args.cdsfile
-    codefile = args.transcode
-    outfile = args.output
-    return msafile, cdsfile, codefile, outfile
+    keepfile = args.keepfile
+    outdir = args.outdir
+    return cdsfile, outdir, keepfile
 
 
 def main():
-    msafile, cdsfile, codefile, outfile = commands()
-    prot_dict = makedict(msafile)
-    uncl_dict = makedict(cdsfile)
-    code_dict = buildcode(codefile)
+    cdsfile, outdir, keepfile = commands()
+    msas_dict, uncl_dict, pfile, mfile = run_ptot_msa(cdsfile, outdir)
     uncl_dict = splitseq(uncl_dict)
-    resu_dict = mapseq(prot_dict, uncl_dict, code_dict)
+    resu_dict = mapseq(msas_dict, uncl_dict)
+    outfile = os.path.join(outdir, os.path.basename(cdsfile))
     write2file(resu_dict, outfile)
+    if not keepfile:
+        os.remove(pfile)
+        os.remove(mfile)
 
 
 if __name__ == "__main__":
