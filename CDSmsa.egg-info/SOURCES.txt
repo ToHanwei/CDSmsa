@@ -1,0 +1,10 @@
+LICENSE
+README.md
+pyproject.toml
+setup.py
+CDSmsa.egg-info/PKG-INFO
+CDSmsa.egg-info/SOURCES.txt
+CDSmsa.egg-info/dependency_links.txt
+CDSmsa.egg-info/entry_points.txt
+CDSmsa.egg-info/requires.txt
+CDSmsa.egg-info/top_level.txt

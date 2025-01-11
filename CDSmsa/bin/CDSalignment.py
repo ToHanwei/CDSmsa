@@ -28,6 +28,7 @@ def aad2codes():
                 "Y": ["TAT", "TAC"], 
                 "I": ["ATT", "ATC", "ATA"], 
                 "V": ["GTT", "GTC", "GTA", "GTG"], 
+                "X": ["NNN"],
             }
     return codes
 
@@ -80,13 +81,34 @@ def sequence_align(seqf, alignf):
                #+ " --localpair "
                #+ "--maxiterate 1000 "
                + " --thread -1 "
-               + "--quiet "
+            #    + "--quiet "
                + seqf
                + " > "
                + alignf
     )
     p = Popen(command, shell=True)
     p.wait()
+
+
+def build_hmm_profile(msa_file: str, hmm_out: str) -> str:
+    """
+    Build HMM profile from multiple sequence alignment
+    
+    Args:
+        msa_file: Path to the MSA file
+        hmm_out: Path for output HMM profile
+    
+    Returns:
+        str: Path to the generated HMM profile
+        
+    Raises:
+        FileNotFoundError: If HMM profile generation fails
+    """
+    cmd = f"hmmbuild {hmm_out} {msa_file}"
+    os.system(cmd)
+    if not os.path.exists(hmm_out):
+        raise FileNotFoundError(f"Failed to build HMM profile: {hmm_out}")
+    return hmm_out
 
 
 def run_ptot_msa(cdsfile:str, outdir:str) -> dict:
@@ -145,15 +167,22 @@ def mapseq(pdict, udict):
     mapdict = {}
     for name in names:
         i, mseq, pseq, useq = 0, "", pdict[name], udict[name]
+        len_pseq = len(pseq)
         for aad in pseq:
             if aad == "-":
                 uncl = "-" * 3
             else:
                 uncl = useq[i]
-                assert uncl in cdict[aad]
-                i += 1
+                if (i != len_pseq - 1) and (uncl in ["TAG", "TGA", "TAA"]):
+                    mseq = ""
+                    break
+                elif (uncl in cdict[aad]) or (aad == "X"):
+                    i += 1
+                else:
+                    pass
             mseq += uncl
-        mapdict[name] = mseq
+        if mseq:
+            mapdict[name] = mseq
     return mapdict
 
 

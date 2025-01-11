@@ -1,3 +1,20 @@
+Metadata-Version: 2.1
+Name: CDSmsa
+Version: 0.0.2
+Summary: Coding sequence MSA with optional HMM profile building
+Home-page: https://github.com/ToHanwei/CDSmsa
+Author: ToHanwei
+Author-email: whanwei@foxmail.com
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: biopython
+Requires-Dist: mafft
+Requires-Dist: hmmer
+
 # CDSmsa
 Coding sequence MSA (Multiple Sequence Alignment) with optional HMM profile building
 

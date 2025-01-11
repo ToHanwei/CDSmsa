@@ -1,0 +1,3 @@
+[console_scripts]
+batch_msa = CDSmsa.batch_msa:main
+single_msa = CDSmsa.single_msa:main
